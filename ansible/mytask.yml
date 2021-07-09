@@ -1,0 +1,6 @@
+---
+- name: My task
+  hosts: all
+  tasks:
+     - name: Testing
+       command: "touch /tmp/ansible_test"
