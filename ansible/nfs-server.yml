@@ -1,6 +1,6 @@
 ---
 - name: Partition and format disk
-  hosts: nfs-server
+  hosts: all
   gather_facts: true
   become: true
   become_user: root
@@ -41,13 +41,13 @@
 - name: Configure nfs server
   tags:
     - nfs
-  hosts: nfs-server
+  hosts: all
   become: yes
   roles:
     - role: nfs-server
 
 - name: 
-  hosts: nfs-server
+  hosts: all
   become: yes
   tasks:
   - firewalld:
