@@ -39,7 +39,7 @@
     dest: '/etc/exports'
     create: yes
     backup: yes
-    line: '{{item.path}} {% for client in item.clients %}{{client}}({{item.options|default("async,rw,no_root_squash,no_subtree_check,crossmnt")}}) {% endfor %}'
+    line: '{{item.path}} {{item.clients}}({{item.options|default("async,rw,no_root_squash,no_subtree_check,crossmnt")}})'
     # replace clients+options on the given path
     regexp: '^ *{{item.path}} +'
     state: present
