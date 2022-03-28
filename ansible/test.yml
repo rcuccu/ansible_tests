@@ -4,4 +4,4 @@
   tasks:
     - name: Print morpheus variable
       debug:
-        msg: "App ID : {{ morpheus['instance'].apps['id'] }}"
+        msg: "App ID : {{ morpheus['instance']['apps'.['id']] }}"
