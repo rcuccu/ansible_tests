@@ -1,6 +1,7 @@
 ---
-- name: Test
+- name: Morpheus variable print
   hosts: all
   tasks:
-    - name: run echo command
-      command: /bin/echo "Test ansible"
+    - name: Print morpheus variable
+      debug:
+        msg: "App ID : {{ morpheus['instance']['apps']['id'] }}"
