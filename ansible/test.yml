@@ -1,7 +1,9 @@
 ---
 - name: Morpheus variable print
   hosts: all
+  vars:
+    ktoken: "c6b4fe.{{ (morpheus['instance']['apps'][0]['id'] | hash('md5'))[:16] }}"
   tasks:
     - name: Print morpheus variable
       debug:
-        msg: "App ID : {{ (morpheus['instance']['apps'][0]['name'] | hash('md5'))[:16] }}"
+        msg: "My token is : {{ ktoken }}"
