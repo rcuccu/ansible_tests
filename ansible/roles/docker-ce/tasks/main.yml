@@ -1,0 +1,118 @@
+---
+#
+# Install Docker Community Edition
+# See: https://docs.docker.com/install/
+#
+# Initially contributed by Manuele Simi
+#
+
+
+- name: Perform distribution-dependent steps
+  include_tasks: 'init-{{ansible_os_family}}.yml'
+
+
+- name: 'Create Docker configuration directory'
+  file:
+    dest: '/etc/docker'
+    state: directory
+
+
+- name: 'Deploy default Docker daemon configuration'
+  copy:
+    src: 'etc/docker/daemon.json'
+    dest: '/etc/docker/daemon.json'
+
+
+- name: 'Check if a default system environment file exists'
+  stat:
+    path: '/etc/environment'
+  register: _etc_environment
+  ignore_errors: yes
+
+
+- name: 'Create systemd override directory for `docker.service`'
+  file:
+    path: '/etc/systemd/system/docker.service.d'
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+
+- name: 'Ensure Docker daemon loads the default system environment'
+  copy:
+    src: 'etc/systemd/system/docker.service.d/override.conf'
+    dest: '/etc/systemd/system/docker.service.d/override.conf'
+  when: _etc_environment.stat.exists
+
+
+- name: 'Install Docker Engine - Community Edition'
+  package:
+    name:
+      - docker-ce
+      - docker-ce-cli
+    state: '{{ pkg_install_state }}'
+
+
+- name: 'Install Docker Compose'
+  get_url:
+    url: 'https://github.com/docker/compose/releases/download/{{ docker_compose_release }}/docker-compose-Linux-{{ ansible_userspace_architecture }}'
+    dest: '/usr/local/bin/docker-compose'
+    group: 'docker'
+    mode: 'u+rwx,g+rx'
+  when: 'docker_compose_release|bool'
+
+
+- name: 'Install Docker credential helpers'
+  unarchive:
+    src: 'https://github.com/docker/docker-credential-helpers/releases/download/{{ docker_credential_helpers_release }}/docker-credential-{{ item }}-{{ docker_credential_helpers_release }}-amd64.tar.gz'
+    dest: '/usr/local/bin/'
+    remote_src: yes
+    group: 'docker'
+    mode: 'u+rwx,g+rx'
+  loop:
+    - pass
+    - secretservice
+  when: 'docker_credential_helpers_release|bool'
+
+
+- name: 'Install dependencies of Docker credential helpers'
+  package:
+    name:
+      - 'pass'
+      - 'gnupg2'
+    state: '{{ pkg_install_state }}'
+  when: 'docker_credential_helpers_release|bool'
+
+
+- name: 'Enable Docker service and ensure it (re)starts at boot'
+  service:
+    name: 'docker'
+    state: 'started'
+    enabled: 'yes'
+
+
+# Prune dangling containers by setting a cron job to clean thing ups
+- name: 'set periodic docker system prune'
+  cron:
+    name: 'docker-prune'
+    special_time: '{{ docker_prune_frequency }}'
+    state: present
+    job: 'docker container prune -f'
+
+
+# always allow default OS user to use `docker`
+- name: 'add default OS user to group `docker`'
+  user:
+    name: '{{ ansible_user }}'
+    groups: 'docker'
+    append: 'yes'
+
+
+# Add more users to the `docker` group
+- name: 'Add users to docker group'
+  user:
+    name: '{{ item }}'
+    groups: 'docker'
+    append: 'yes'
+  loop: '{{ docker_group_members }}'
