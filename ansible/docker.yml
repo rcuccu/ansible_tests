@@ -1,6 +1,8 @@
 ---
 - name: Docker Playbook
   hosts: all
+  become: true
+  become_user: root
   tags:
     - docker
   roles:
