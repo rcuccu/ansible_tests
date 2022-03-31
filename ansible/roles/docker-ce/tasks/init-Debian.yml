@@ -1,11 +1,5 @@
 ---
 
-- name: 'Fail if base OS not supported'
-  fail:
-    msg: 'Docker CE installation only supported on Debian 9 or later, and Ubuntu 16.04 or later'
-  when: 'not (is_debian_9_or_later or is_ubuntu_16_04_or_later)'
-
-
 - name: 'Uninstall old versions'
   apt:
     name:
