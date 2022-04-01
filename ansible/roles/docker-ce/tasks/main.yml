@@ -98,12 +98,12 @@
 
 
 # Prune dangling containers by setting a cron job to clean thing ups
-- name: 'set periodic docker system prune'
-  cron:
-    name: 'docker-prune'
-    special_time: '{{ docker_prune_frequency }}'
-    state: present
-    job: 'docker container prune -f'
+#- name: 'set periodic docker system prune'
+#  cron:
+#    name: 'docker-prune'
+#    special_time: '{{ docker_prune_frequency }}'
+#    state: present
+#    job: 'docker container prune -f'
 
 
 # always allow default OS user to use `docker`
