@@ -109,7 +109,8 @@
 # always allow default OS user to use `docker`
 - name: 'add default OS user to group `docker`'
   user:
-    name: '{{ ansible_user }}'
+    name: "{{ morpheus['server']['sshUsername'] }}"
+#    name: '{{ ansible_user }}'
     groups: 'docker'
     append: 'yes'
 
