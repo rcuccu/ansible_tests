@@ -3,7 +3,8 @@
   hosts: all
   vars:
     ktoken: "c6b4fe.{{ (morpheus['instance']['apps'][0]['id'] | hash('md5'))[:16] }}"
+    myuser: "{{ morpheus['server']['sshUsername'] }}"
   tasks:
     - name: Print morpheus variable
       debug:
-        msg: "My token is : {{ ktoken }}"
+        msg: "My user is : {{ myuser }}"
