@@ -1,0 +1,47 @@
+---
+- name: Mount external volume
+  hosts: all
+  vars:
+    vdb_volume_exists: "{{ ansible_facts['devices']['vdb'] is defined }}"
+    vdb1_partition_exists: "{{ ansible_facts['devices']['vdb']['partitions']['vdb1'] is defined }}"
+    mountpoint: "{{ mountpath | default('/data') }}"
+  tasks:
+     - name: Check if partition exists
+       shell: |
+         echo 'found vdb1 partition' >> /tmp/ansible_test
+       when: vdb_volume_exists and vdb1_partition_exists
+     - name: install parted
+       package:
+         name: parted
+         state: present
+   
+     - name: Partition the disk volume
+       parted:
+         device: /dev/vdb
+         unit: MiB
+         label: gpt
+         number: 1
+         part_start: "0%"
+         part_end: "100%"
+         part_type: primary
+         state: present
+       when: vdb_volume_exists and not vdb1_partition_exists
+   
+     - name: Create a ext4 filesystem on /dev/vdb1
+       filesystem:
+         fstype: ext4
+         dev: /dev/vdb1
+       when: not vdb1_partition_exists
+   
+     - name: Create mount directory
+       file:
+         path: "{{ mountpoint }}"
+         state: directory
+   
+     - name: Mount volume in selected directory
+       mount:
+         path: "{{ mountpoint }}"
+         src: /dev/vdb1
+         fstype: ext4
+         state: mounted
+
