@@ -1,0 +1,4 @@
+---
+
+- name: Use distro-specific install procedure
+  include_tasks: '{{ ansible_os_family }}.yml'
