@@ -7,7 +7,7 @@
 
 - name: Initialize Kubernetes master
   command: |
-    kubeadm init --pod-network-cidr={{kubernetes_network}} --service-cidr={{kubernetes_service_network}}
+    kubeadm init --pod-network-cidr={{kubernetes_network}} --service-cidr={{kubernetes_service_network}} --token {{ktoken}}
   when: "'failed' in token_list_result.stderr"
 
 - name: Waiting for configuration to become available

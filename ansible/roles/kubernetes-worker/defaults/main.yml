@@ -1,3 +1,5 @@
 ---
 
 kubernetes_default_port: 6443
+
+ktoken: "c6b4fe.{{ (morpheus['instance']['apps'][0]['id'] | hash('md5'))[:16] }}"
