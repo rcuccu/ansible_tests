@@ -3,4 +3,4 @@
 NFS_EXPORTS:
   - path: '/data'
     clients: "192.168.1.1/255.255.255.0"
-    options: 'ro,no_root_squash,async,no_subtree_check,crossmnt'
+    options: 'rw,no_root_squash,async,no_subtree_check,crossmnt'
