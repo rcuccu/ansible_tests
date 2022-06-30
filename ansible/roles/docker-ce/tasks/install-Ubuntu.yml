@@ -43,7 +43,7 @@
     state: directory
 
 - name: De-Armor Docker GPG key
-  command:  gpg --dearmor /tmp/dockergpg -o /etc/apt/keyrings/docker.gpg
+  command:  gpg -o /etc/apt/keyrings/docker.gpg --dearmor /tmp/dockergpg
 
 
 - name: Set key file permissions
