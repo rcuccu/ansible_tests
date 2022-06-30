@@ -36,7 +36,7 @@
     dest: /tmp/dockergpg
 
 - name: De-Armor Docker GPG key
-  command:  gpg --dearmor < /tmp/dockergpg > /etc/apt/keyrings/docker.gpg
+  command:  gpg --dearmor /tmp/dockergpg -o /etc/apt/keyrings/docker.gpg
 
 
 - name: Set key file permissions
