@@ -1,24 +1,8 @@
 ---
-
-# Release channel. As of Feb. 2019, three channels are available:
-# stable, test, and nightly
-docker_release_channel: 'stable'
-
 # List of users that we want to add to the `docker` group.
 # We add at least the user running ansible and the current username (they may be different)
 docker_group_members:
   - "{{ morpheus['server']['sshUsername'] }}"  
 #  - '{{ansible_user}}'
 
-# Specify how often we want to prune
-docker_prune_frequency: 'daily'
 
-# What release of `docker-compose` to install;
-# set it to `null` to skip installing `docker-compose`
-docker_compose_release: '1.25.5'
-
-# What release of the Docker credential helpers to install;
-# set it to `null` to skip installing them
-docker_credential_helpers_release: 'v0.6.3'
-
-pkg_install_state: 'present'
