@@ -1,0 +1,17 @@
+---
+#
+# Install and configure prerequisites
+# Ref. : https://kubernetes.io/docs/setup/production-environment/container-runtimes/#install-and-configure-prerequisites
+#
+- name: Install and configure network prerequisites
+  include_tasks: 'network-prerequisites.yml'
+
+#
+# Install containerd
+# See: https://github.com/containerd/containerd/blob/main/docs/getting-started.md
+#
+
+- name: Perform distribution-dependent steps
+  include_tasks: 'install-{{ansible_distribution}}.yml'
+
+
