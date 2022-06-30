@@ -92,6 +92,13 @@
     enabled: 'yes'
 
 
+- name: Create etc containerd directory
+  file:
+    path: /etc/containerd
+    mode: 0755
+    state: directory
+
+
 - name: 'Generate default containerd config'
   shell: containerd config default > /etc/containerd/config.toml
 
