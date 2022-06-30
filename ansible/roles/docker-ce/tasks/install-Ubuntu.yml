@@ -35,6 +35,13 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     dest: /tmp/dockergpg
 
+
+- name: Create keyrings directory
+  file:
+    path: /etc/apt/keyrings
+    mode: 0755
+    state: directory
+
 - name: De-Armor Docker GPG key
   command:  gpg --dearmor /tmp/dockergpg -o /etc/apt/keyrings/docker.gpg
 
