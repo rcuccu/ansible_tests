@@ -1,0 +1,9 @@
+---
+- name: Install containerd playbook
+  hosts: all
+  become: true
+  become_user: root
+  tags:
+    - containerd
+  roles:
+    - role: 'containerd'
