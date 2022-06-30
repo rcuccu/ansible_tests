@@ -81,7 +81,7 @@
 - name: 'Install Docker packages'
   apt:
     name:
-      - containerd.io
+      - containerd
     state: present
 
 
