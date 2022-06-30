@@ -51,7 +51,7 @@
 
 - name: De-Armor Docker GPG key
   command:  gpg -o /etc/apt/keyrings/docker.gpg --dearmor /tmp/dockergpg
-  when: not gpg_docker_file_exists
+  when: not gpg_docker_file_exists.stat.exists
 
 
 - name: Set key file permissions
