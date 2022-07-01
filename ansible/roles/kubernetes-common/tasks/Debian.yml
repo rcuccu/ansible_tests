@@ -5,12 +5,6 @@
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     state: present
 
-- name: Add Kubernetes APT repo
-  apt_repository:
-    repo: 'deb http://apt.kubernetes.io/ kubernetes-{{ansible_distribution_release|lower}} main'
-    filename: kubernetes
-    state: present
-  when: not is_ubuntu_bionic
 
 # as of 2019-12-11, Ubuntu 18.04 "bionic" does not yet have its own
 # K8s package repository, so use the ones from Ubuntu 16.04 "xenial"
@@ -44,12 +38,10 @@
 
 - name: Enable and start kubeadm services
   service:
-    name: '{{ item }}'
+    name: 'kubelet'
     enabled: true
     state: started
-  loop:
-    - docker
-    - kubelet
+
 
 - name: Make .kube directory
   file: 

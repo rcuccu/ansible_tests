@@ -1,0 +1,12 @@
+---
+
+- name: Install Kubernetes worker
+  hosts: all
+  tags:
+    - containerd
+    - kubernetes
+    - worker
+  roles:
+    - kubernetes-worker
+
+
