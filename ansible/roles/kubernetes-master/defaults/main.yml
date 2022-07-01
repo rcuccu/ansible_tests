@@ -4,7 +4,8 @@ kubernetes_default_networking: calico
 kubernetes_network: 10.244.0.0/16
 kubernetes_service_network: 10.96.0.0/12
 
-ktoken: "c6b4fe.{{ (morpheus['instance']['apps'][0]['id'] | hash('md5'))[:16] }}"
+#ktoken: "c6b4fe.{{ (morpheus['instance']['apps'][0]['id'] | hash('md5'))[:16] }}"
+ktoken: "1ewc2e.c6b4fec6b4fec6b4"
 
 # Flannel network works on amd64, arm, arm64 and ppc64le platform
 # see https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#instructions
