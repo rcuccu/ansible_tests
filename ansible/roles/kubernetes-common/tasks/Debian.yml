@@ -13,7 +13,6 @@
     repo: 'deb http://apt.kubernetes.io/ kubernetes-xenial main'
     filename: kubernetes
     state: present
-  when: is_ubuntu_bionic
 
 - name: Install packages (latest version)
   apt:
@@ -43,10 +42,3 @@
     state: started
 
 
-- name: Make .kube directory
-  file: 
-    path: /home/ubuntu/.kube
-    owner: ubuntu
-    group: ubuntu
-    state: directory
-  when: is_ubuntu
