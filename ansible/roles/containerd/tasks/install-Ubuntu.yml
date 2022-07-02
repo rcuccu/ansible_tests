@@ -78,7 +78,7 @@
     cache_valid_time: 3600
 
 
-- name: 'Install Docker packages'
+- name: 'Install containerd package'
   apt:
     name:
       - containerd
