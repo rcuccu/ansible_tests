@@ -1,5 +1,5 @@
 - name: Get kubernetes cluster version
-  command: kubectl version | base64 | tr -d '\n'
+  shell: kubectl version | base64 | tr -d '\n'
   register: k8s_version
 
 - name: Copy network configuration
