@@ -1,0 +1,19 @@
+- name: Get kubernetes cluster version
+  command: kubectl version | base64 | tr -d '\n'
+  register: k8s_version
+
+- name: Copy network configuration
+  get_url:
+    url: "{{kubernetes_networking.weave.manifest}}?k8s-version={{k8s_version.stdout}}"
+    dest: /var/tmp/kube-{{kubernetes_default_networking}}.yml
+  when: "'failed' in token_list_result.stderr"
+
+    #- name: Replace network cidr
+    #  replace:
+    #    path: /var/tmp/kube-{{kubernetes_default_networking}}.yml
+    #    regexp: "192.168.0.0/16"
+    #    replace: "{{kubernetes_network}}"
+
+- name: Initialize Kubernetes networking
+  command: kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f /var/tmp/kube-{{kubernetes_default_networking}}.yml
+  when: "'failed' in token_list_result.stderr"

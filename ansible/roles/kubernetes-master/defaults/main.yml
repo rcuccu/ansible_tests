@@ -1,6 +1,6 @@
 ---
 
-kubernetes_default_networking: calico
+kubernetes_default_networking: weave
 kubernetes_network: 10.244.0.0/16
 kubernetes_service_network: 10.96.0.0/12
 
@@ -11,6 +11,8 @@ ktoken: "1ewc2e.c6b4fec6b4fec6b4"
 # see https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#instructions
 
 kubernetes_networking:
+  weave:
+    manifest: https://cloud.weave.works/k8s/net
   calico:
     manifest: https://docs.projectcalico.org/manifests/calico.yaml 
   canal:
