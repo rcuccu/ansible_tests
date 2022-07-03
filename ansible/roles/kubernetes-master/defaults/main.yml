@@ -1,6 +1,6 @@
 ---
 
-kubernetes_default_networking: calico
+kubernetes_default_networking: weave
 kubernetes_network: 10.32.0.0/12
 kubernetes_service_network: 10.96.0.0/12
 
