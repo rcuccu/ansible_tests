@@ -110,6 +110,11 @@
     path: /etc/containerd/config.toml
     regexp: 'SystemdCgroup = false'
     replace: 'SystemdCgroup = true'
-  notify:
-    - Restart containerd
+    #  notify:
+    #    - Restart containerd
 
+
+- name: Restart containerd
+  service: 
+    name: 'containerd'
+    state: restarted
