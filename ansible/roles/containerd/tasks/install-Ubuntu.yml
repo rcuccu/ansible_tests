@@ -81,6 +81,7 @@
 - name: 'Install containerd package'
   apt:
     name:
+      - containerd
       - containerd.io
     state: present
 
