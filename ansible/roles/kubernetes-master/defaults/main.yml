@@ -1,7 +1,7 @@
 ---
 
 kubernetes_default_networking: weave
-kubernetes_network: 10.244.0.0/16
+kubernetes_network: 10.32.0.0/12
 kubernetes_service_network: 10.96.0.0/12
 
 #ktoken: "c6b4fe.{{ (morpheus['instance']['apps'][0]['id'] | hash('md5'))[:16] }}"
