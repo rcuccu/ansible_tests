@@ -2,7 +2,7 @@
 
 # what version of K8s to actually install
 #kubernetes_version: latest
-kubernetes_version: 1.22.10
+kubernetes_version: 1.22.11-00
 
 # Packages install state
 pkg_install_state: 'present'
