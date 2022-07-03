@@ -81,6 +81,8 @@
 - name: 'Install containerd package'
   apt:
     name:
+      - apparmor
+      - apparmor-utils
       - containerd.io
     state: present
 
