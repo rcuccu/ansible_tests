@@ -1,7 +1,6 @@
 ---
 - name: Mount s3fs volume
-  hosts: localhost
-  connection: local
+  hosts: all
   become: yes
   vars:
     s3_url: https://storage.ecmwf.europeanweather.cloud
