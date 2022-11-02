@@ -1,0 +1,18 @@
+---
+- name: Mount s3fs volume
+  hosts: all
+- name: Mount volume in selected directory
+  vars:
+    s3_url: https://storage.ecmwf.europeanweather.cloud
+    s3_bucket: blu
+    s3_mount_point: /mnt/blu
+    user: rcuccu
+    group: rcuccu
+  mount:
+    path: "{{s3_mount_point}}"
+    src: "s3fs#{{s3_bucket}}"
+    opts: "_netdev,allow_other,nodev,nosuid,uid=rcuccu,gid=rcuccu,use_path_request_style,url={{s3_url}}"
+    state: mounted
+    fstype: fuse
+    boot: true
+
